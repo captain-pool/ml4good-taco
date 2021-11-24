@@ -9,8 +9,7 @@ import numpy as np
 
 
 class Environment(enum.Enum):
-    TENSORFLOW = 1
-    TORCH = 2
+    TORCH = 1
 
 
 def cache_fn(function):
@@ -38,7 +37,7 @@ def cache_fn(function):
     return wrapper_fn
 
 
-def load_dataset(path, env, transform_fn, cache_fn=functools.lru_cache):
+def load_dataset(path, transform_fn, cache_fn=functools.lru_cache):
     """
     Load TACO dataset from a specified path
     for a given Environment
