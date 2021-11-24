@@ -1,0 +1,7 @@
+torch==1.10.0
+tqdm
+wandb==0.12.7
+torchsummary==1.5.1
+torchvision
+pycocotools
+jupyter
