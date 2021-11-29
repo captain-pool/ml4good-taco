@@ -8,10 +8,11 @@ import collections
 import functools
 import json
 import pathlib
+
 import PIL
-from pycocotools import coco
-import torchvision.transforms.functional as TF
 import torch
+import torchvision.transforms.functional as TF
+from pycocotools import coco
 
 
 def dummy_wrapper(function):
