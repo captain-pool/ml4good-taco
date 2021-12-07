@@ -11,7 +11,7 @@ import pathlib
 
 import PIL
 import torch
-import torchvision.transforms.functional as TF
+import torchvision
 from pycocotools import coco
 
 
@@ -69,7 +69,12 @@ class TacoDataset(torch.utils.data.Dataset):
         self.len_categories += 1
         self.len_background = max(self._bgs, key=lambda x: x["id"])["id"]
         self.len_background += 1
-
+        self._load_fn = torchvision.transforms.Compose([
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Normalize(
+            (0.495, 0.468, 0.424), # mean of image channels in TACO
+            (0.2513, 0.2389, 0.2390) # std of image channels in TACO
+            )])
         self._transform_fn = transform_fn
         self._idx2key = self._cocoobj.getImgIds()
         self._catkey2idx = {k: i for i, k in enumerate(self._cocoobj.getCatIds())}
@@ -188,7 +193,7 @@ class TacoDataset(torch.utils.data.Dataset):
         idx = self._idx2key[idx]
         filename = self._cocoobj.loadImgs(idx)[0]["file_name"]
         path = self.datadir / filename
-        img = self.load_image_fn(path, self._transform_fn, TF.to_tensor)
+        img = self.load_image_fn(path, self._transform_fn, self._load_fn)
         bgs = self.imgid2bgids.get(idx, [])
         ann_ids = self._cocoobj.getAnnIds(imgIds=idx)
 
