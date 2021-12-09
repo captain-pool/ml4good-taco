@@ -35,7 +35,7 @@ def cache_fn():
     return cache_wrapper
 
 
-def load_dataset(path, transform_fn, cache_fn=functools.lru_cache()):
+def load_dataset(path, env, transform_fn, cache_fn=functools.lru_cache()):
     """
     Load TACO dataset from a specified path
     for a given Environment
