@@ -55,6 +55,6 @@ def load_dataset(path, transform_fn, cache_fn=functools.lru_cache()):
     class_name = "tacoloader.%s_loader" % env.name.lower()
     module = importlib.import_module(class_name)
     return (
-        module.TacoDataset(path, transform_fn, cache_fn()),
+        module.TacoDataset(path, transform_fn, cache_fn),
         module.TacoDataset.collate_fn,
     )
